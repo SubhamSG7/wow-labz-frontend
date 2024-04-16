@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Cookies from 'js-cookie';
+import { useNavigate } from "react-router-dom";
 
 
 const Login = () => {
@@ -7,6 +8,7 @@ const Login = () => {
         email:'',
         password:''
     });
+    const navigate=useNavigate();
     function handleLogin(e){
         e.preventDefault();
         fetch('http://localhost:3030/api/user/LogIn', {
@@ -24,7 +26,9 @@ const Login = () => {
                 console.log( data);
                 if(data.message==='success'){
                     Cookies.set('email', data.email, { expires: 1 });
+                    navigate('/HomePage')
                 }
+
                 // Handle success response from the backend
             })
             .catch((error) => {
